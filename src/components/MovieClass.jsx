@@ -13,9 +13,14 @@ export class MovieClass extends Component {
   // Birth stage- call method after component is rendered
   componentDidMount() {
     fetch(
-      "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=bZ7AoCRAkbE8t3248fZBqJzgbg54i39P"
+      "https://api.nytimes.com/svc/movies/v2/reviews/all.json?api-key=YKFQnvWKwNwhg9GsTyBN85tUnyE74dl9"
     )
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
         console.log("response:", data); //logging response to console to check data availability
         this.setState({ movies: data.results }); //updating users property in the state with the list of users retrieved from the API.
